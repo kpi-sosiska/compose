@@ -1,0 +1,34 @@
+version: '3'
+services:
+  admin:
+    environment:
+      - ADMIN=1
+    image: svinerus/sova-backend
+    volumes:
+      - ./run:/run
+      - static:/backend/static
+
+  bot:
+    environment:
+      - BOT_TOKEN=123
+    image: svinerus/sova-backend
+    volumes:
+      - ./run:/run
+
+  ngingx:
+    image: nginx
+    depends_on:
+      - admin
+      - bot
+    volumes:
+      - ./run:/run
+      - ./nginx:/etc/nginx/conf.d
+      - ./nginx/letsencrypt:/etc/letsencrypt
+      - static:/backend/static
+    ports:
+     - 80:80
+
+volumes:
+  static:
+
+#  frontend:
