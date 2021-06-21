@@ -2,7 +2,7 @@ version: '3'
 services:
   admin:
     environment:
-      - ADMIN=1
+      - ADMIN=PROD
     image: svinerus/sova-backend
     volumes:
       - ./run:/run
@@ -12,6 +12,7 @@ services:
   bot:
     environment:
       - BOT_TOKEN=123
+      - BOT_DOMAIN=sova.kpi.in.ua
     image: svinerus/sova-backend
     volumes:
       - ./run:/run
