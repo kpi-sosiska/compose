@@ -7,6 +7,7 @@ services:
     volumes:
       - ./run:/run
       - static:/backend/static
+      - ./db:/backend/db
 
   bot:
     environment:
