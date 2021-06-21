@@ -16,6 +16,7 @@ services:
     image: svinerus/sova-backend
     volumes:
       - ./run:/run
+      - ./db:/backend/db
 
   ngingx:
     image: nginx
