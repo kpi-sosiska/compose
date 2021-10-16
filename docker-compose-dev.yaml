@@ -1,0 +1,27 @@
+version: '3'
+services:
+  admin:
+    environment:
+      - ADMIN=DEV
+    image: svinerus/sova-backend
+    build: ../backend
+    volumes:
+      - ./run:/run
+      - ../backend/static:/backend/static
+      - ../backend/db:/backend/db
+      - ../backend/:/backend
+    ports:
+      - 8000:8000
+
+  bot:
+    environment:
+      - BOT_TOKEN=123
+    image: svinerus/sova-backend
+    build: ../backend
+    volumes:
+      - ./run:/run
+      - ../backend/db:/backend/db
+      - ../backend/:/backend
+
+
+#  frontend:
