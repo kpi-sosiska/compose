@@ -11,12 +11,21 @@ services:
 
   bot:
     environment:
-      - BOT_TOKEN=123
-      - BOT_DOMAIN=sova.kpi.in.ua
+      - BOT_TOKEN=$BOT_TOKEN
+      - BOT_DOMAIN=$BOT_DOMAIN
+      - REDIS_HOST=redis
+      - REDIS_PORT=$REDIS_PORT
+      - REDIS_FSM_DB=$REDIS_FSM_DB
+      - REDIS_FSM_PREFIX=$REDIS_FSM_PREFIX
     image: svinerus/sova-backend
     volumes:
       - ./run:/run
       - ./db:/backend/db
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
 
   nginx:
     build: ./nginx
@@ -34,5 +43,6 @@ services:
 
 volumes:
   static:
+  redis-data:
 
 #  frontend:
