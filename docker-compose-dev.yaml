@@ -2,47 +2,42 @@ version: '3'
 services:
   admin:
     environment:
-      - ADMIN=PROD
+      - ADMIN=DEV
     image: svinerus/sova-backend
+    build: ../backend
     volumes:
       - ./run:/run
-      - static:/backend/static
-      - ./db:/backend/db
+      - ../backend/static:/backend/static
+      - ../backend/db:/backend/db
+      - ../backend/:/backend
+    ports:
+      - 8000:8000
 
   bot:
+    stdin_open: true
+    tty: true
     environment:
       - BOT_TOKEN=$BOT_TOKEN
-      - BOT_DOMAIN=$BOT_DOMAIN
       - REDIS_HOST=redis
       - REDIS_PORT=$REDIS_PORT
       - REDIS_FSM_DB=$REDIS_FSM_DB
       - REDIS_FSM_PREFIX=$REDIS_FSM_PREFIX
+    depends_on: 
+      - redis
     image: svinerus/sova-backend
+    build: ../backend
     volumes:
       - ./run:/run
-      - ./db:/backend/db
+      - ../backend/db:/backend/db
+      - ../backend/:/backend
 
   redis:
     image: redis:alpine
     volumes:
       - redis-data:/data
 
-  nginx:
-    build: ./nginx
-    depends_on:
-      - admin
-      - bot
-    volumes:
-      - ./run:/run
-      - ./nginx:/etc/nginx/conf.d
-      - ./nginx/letsencrypt:/etc/letsencrypt
-      - static:/backend/static
-    ports:
-     - 80:80
-     - 443:443
 
 volumes:
-  static:
   redis-data:
 
 #  frontend:
