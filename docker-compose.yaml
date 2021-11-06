@@ -14,10 +14,9 @@ services:
       - BOT_TOKEN=$BOT_TOKEN
       - BOT_DOMAIN=$BOT_DOMAIN
       - REDIS_HOST=redis
-      - REDIS_PORT=$REDIS_PORT
-      - REDIS_FSM_DB=$REDIS_FSM_DB
-      - REDIS_FSM_PREFIX=$REDIS_FSM_PREFIX
     image: svinerus/sova-backend
+    depends_on:
+      - redis
     volumes:
       - ./run:/run
       - ./db:/backend/db

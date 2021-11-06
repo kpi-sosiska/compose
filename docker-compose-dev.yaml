@@ -19,10 +19,7 @@ services:
     environment:
       - BOT_TOKEN=$BOT_TOKEN
       - REDIS_HOST=redis
-      - REDIS_PORT=$REDIS_PORT
-      - REDIS_FSM_DB=$REDIS_FSM_DB
-      - REDIS_FSM_PREFIX=$REDIS_FSM_PREFIX
-    depends_on: 
+    depends_on:
       - redis
     image: svinerus/sova-backend
     build: ../backend
